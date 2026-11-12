@@ -81,7 +81,8 @@ Open the Unity Mod Manager window (Ctrl+F10) and expand the mod.
 Requires [Unity Mod Manager](https://www.nexusmods.com/site/mods/21) 0.23.0 or later,
 set up for Pathfinder: Wrath of the Righteous. Built and checked against game version 2.7.0.
 
-1. Download `AutoCackle-<version>.zip`.
+1. Download `AutoCackle-<version>.zip` from
+   [Nexus Mods](https://www.nexusmods.com/pathfinderwrathoftherighteous/mods/1265).
 2. Install it with Unity Mod Manager (Mods tab, drop the zip), or extract it so that the
    files are in `<game folder>\Mods\AutoCackle\`.
 3. Start the game.
