@@ -52,8 +52,9 @@ Out of combat the game lets you use Cackle/Chant as often as you like at no cost
 is how players build up minutes of Fortune between fights. The mod does the same: while
 the party explores, a character keeps using the ability (about twice per second) until
 the hexes in range reach 5 minutes (a setting, 1 to 10). It then waits until a hex has
-dropped to 80% of that duration before topping it up again. A refill takes dozens of
-uses, so out of combat the ability is always resolved without the animation.
+dropped below 4 minutes (a second setting) before topping it up again, so the hexes stay
+between the two values. A refill takes dozens of uses, so out of combat the ability is
+always resolved without the animation.
 
 This runs only during normal exploration: not in dialogues, cutscenes, while paused or on
 the world map. Each use is written to the combat log, one line per use, so a refill is
@@ -74,6 +75,7 @@ Open the Unity Mod Manager window (Ctrl+F10) and expand the mod.
 | In combat: show the automatic use in the combat log | on | Turn off to hide the "uses Cackle" line. |
 | Out of combat | on | Automatic use while exploring. |
 | Out of combat: bring hexes up to N minutes | 5 | The duration the mod builds up between fights (1 to 10). |
+| Out of combat: top up when a hex drops below N minutes | 4 | Hexes stay between this value and the one above (0.5 to 10, in half minutes). At or above the duration to build up, a hex is topped up every round. |
 | Out of combat: show the automatic uses in the combat log | on | Turn off to hide the lines of a refill (one per use, dozens per refill). |
 | Write every automatic use to the mod log | off | For troubleshooting. |
 | Characters | all on | Switch the automation off for single party members. |

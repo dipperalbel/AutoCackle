@@ -10,6 +10,8 @@ namespace AutoCackle
         public const int MaxRoundsThreshold = 10;
         public const int MinOutOfCombatMinutes = 1;
         public const int MaxOutOfCombatMinutes = 10;
+        public const float MinRefillBelowMinutes = 0.5f;
+        public const float MaxRefillBelowMinutes = 10f;
 
         /// <summary>Use Cackle/Chant automatically in real-time combat.</summary>
         public bool RealTime = true;
@@ -31,6 +33,12 @@ namespace AutoCackle
 
         /// <summary>Out of combat, hexes are brought up to this many minutes.</summary>
         public int OutOfCombatMinutes = 5;
+
+        /// <summary>
+        /// Out of combat, a hex is topped up when it drops below this many minutes. A value at or
+        /// above <see cref="OutOfCombatMinutes"/> tops it up every round.
+        /// </summary>
+        public float OutOfCombatRefillBelowMinutes = 4f;
 
         /// <summary>
         /// Show the automatic uses out of combat in the combat log. Each use is one line and a

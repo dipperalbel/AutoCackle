@@ -48,9 +48,6 @@ namespace AutoCackle
         /// <summary>Lowest rounds threshold applied when a use is queued behind the current action.</summary>
         private const int MinRoundsWhenQueued = 2;
 
-        /// <summary>Out of combat a refill starts when a hex falls to this share of the target duration.</summary>
-        private const double RefillStartFraction = 0.8;
-
         /// <summary>Uses allowed in one refill beyond the number the target duration needs.</summary>
         private const int RefillExtraUses = 10;
 
@@ -257,8 +254,9 @@ namespace AutoCackle
 
         /// <summary>
         /// Out of combat: brings the unit's hexes in range up to the configured duration, one use
-        /// per evaluation, then waits until one of them has dropped noticeably before refilling.
-        /// The wait avoids using the ability every round forever just to add back one round.
+        /// per evaluation, then waits until one of them has dropped below the duration the player
+        /// set before refilling. The wait avoids using the ability every round just to add back
+        /// one round.
         /// </summary>
         private static void TryRefill(UnitEntityData unit, UnitTracking tracking)
         {
@@ -274,9 +272,7 @@ namespace AutoCackle
             }
 
             TimeSpan target = TimeSpan.FromMinutes(Main.Settings.OutOfCombatMinutes);
-            TimeSpan limit = tracking.Refilling
-                ? target
-                : TimeSpan.FromSeconds(target.TotalSeconds * RefillStartFraction);
+            TimeSpan limit = tracking.Refilling ? target : RefillStart(target);
 
             AbilityData ability = FindUsefulAbility(unit, limit);
             if (ability == null)
@@ -303,6 +299,16 @@ namespace AutoCackle
             {
                 tracking.RefillUses++;
             }
+        }
+
+        /// <summary>
+        /// The duration below which a refill starts: the player's setting, never above the target.
+        /// With the two equal, a hex is topped up every round.
+        /// </summary>
+        private static TimeSpan RefillStart(TimeSpan target)
+        {
+            TimeSpan start = TimeSpan.FromMinutes(Main.Settings.OutOfCombatRefillBelowMinutes);
+            return start < target ? start : target;
         }
 
         private static bool CanUseAutomatically(UnitEntityData unit)

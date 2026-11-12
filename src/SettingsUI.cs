@@ -46,6 +46,11 @@ namespace AutoCackle
                 settings.OutOfCombatMinutes,
                 Settings.MinOutOfCombatMinutes,
                 Settings.MaxOutOfCombatMinutes);
+            settings.OutOfCombatRefillBelowMinutes = DrawHalfStepSlider(
+                DescribeRefillStart(settings),
+                settings.OutOfCombatRefillBelowMinutes,
+                Settings.MinRefillBelowMinutes,
+                Settings.MaxRefillBelowMinutes);
             settings.ShowRefillInCombatLog = GUILayout.Toggle(
                 settings.ShowRefillInCombatLog,
                 " Out of combat: show the automatic uses in the combat log (one line per use)");
@@ -66,6 +71,27 @@ namespace AutoCackle
             float slider = GUILayout.HorizontalSlider(value, min, max, GUILayout.Width(SliderWidth));
             GUILayout.EndHorizontal();
             return Mathf.Clamp(Mathf.RoundToInt(slider), min, max);
+        }
+
+        /// <summary>A slider that moves in steps of half a unit.</summary>
+        private static float DrawHalfStepSlider(string label, float value, float min, float max)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(label, GUILayout.ExpandWidth(false));
+            float slider = GUILayout.HorizontalSlider(value, min, max, GUILayout.Width(SliderWidth));
+            GUILayout.EndHorizontal();
+            return Mathf.Clamp(Mathf.Round(slider * 2f) / 2f, min, max);
+        }
+
+        private static string DescribeRefillStart(Settings settings)
+        {
+            float below = settings.OutOfCombatRefillBelowMinutes;
+            if (below >= settings.OutOfCombatMinutes)
+            {
+                return "Out of combat: top up every round (the value is not below the duration above)";
+            }
+
+            return $"Out of combat: top up when a hex drops below {below:0.#} minute(s)";
         }
 
         private static void DrawCharacters(Settings settings)
