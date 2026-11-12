@@ -32,6 +32,12 @@ namespace AutoCackle
         /// <summary>Out of combat, hexes are brought up to this many minutes.</summary>
         public int OutOfCombatMinutes = 5;
 
+        /// <summary>
+        /// Show the automatic uses out of combat in the combat log. Each use is one line and a
+        /// refill is dozens of uses.
+        /// </summary>
+        public bool ShowRefillInCombatLog = true;
+
         /// <summary>Show the automatic use of the ability in the combat log (in combat only).</summary>
         public bool ShowInCombatLog = true;
 

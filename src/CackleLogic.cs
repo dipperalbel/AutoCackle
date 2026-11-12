@@ -435,13 +435,15 @@ namespace AutoCackle
         /// <summary>
         /// Resolves the ability the way the game's own use-ability command does, without the
         /// command and its animation. In combat it then pays the action; out of combat the game
-        /// charges nothing for an ability, and the many uses of a refill are kept out of the log.
+        /// charges nothing for an ability. Each use is one combat log line unless the settings
+        /// hide it; a refill out of combat is dozens of uses, so it has a setting of its own.
         /// </summary>
         private static bool Cast(UnitEntityData unit, AbilityData ability, bool inCombat)
         {
             RuleCastSpell rule = new RuleCastSpell(ability, new TargetWrapper(unit));
             rule.Context.CommandType = ability.RuntimeActionType;
-            if (!inCombat || !Main.Settings.ShowInCombatLog)
+            bool showInLog = inCombat ? Main.Settings.ShowInCombatLog : Main.Settings.ShowRefillInCombatLog;
+            if (!showInLog)
             {
                 rule.Context.DisableLog = true;
                 rule.DisableBattleLogSelf = true;

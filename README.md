@@ -56,7 +56,8 @@ dropped to 80% of that duration before topping it up again. A refill takes dozen
 uses, so out of combat the ability is always resolved without the animation.
 
 This runs only during normal exploration: not in dialogues, cutscenes, while paused or on
-the world map. These uses are not written to the combat log. Because nothing is spent,
+the world map. Each use is written to the combat log, one line per use, so a refill is
+dozens of lines; a setting hides them. Because nothing is spent,
 this option amounts to keeping the hexes up permanently for targets that stay within
 30 feet; turn it off in the settings if you do not want that.
 
@@ -73,6 +74,7 @@ Open the Unity Mod Manager window (Ctrl+F10) and expand the mod.
 | In combat: show the automatic use in the combat log | on | Turn off to hide the "uses Cackle" line. |
 | Out of combat | on | Automatic use while exploring. |
 | Out of combat: bring hexes up to N minutes | 5 | The duration the mod builds up between fights (1 to 10). |
+| Out of combat: show the automatic uses in the combat log | on | Turn off to hide the lines of a refill (one per use, dozens per refill). |
 | Write every automatic use to the mod log | off | For troubleshooting. |
 | Characters | all on | Switch the automation off for single party members. |
 

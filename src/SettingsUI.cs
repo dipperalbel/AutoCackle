@@ -46,6 +46,9 @@ namespace AutoCackle
                 settings.OutOfCombatMinutes,
                 Settings.MinOutOfCombatMinutes,
                 Settings.MaxOutOfCombatMinutes);
+            settings.ShowRefillInCombatLog = GUILayout.Toggle(
+                settings.ShowRefillInCombatLog,
+                " Out of combat: show the automatic uses in the combat log (one line per use)");
 
             GUILayout.Space(SectionSpacing);
             settings.VerboseLog = GUILayout.Toggle(
