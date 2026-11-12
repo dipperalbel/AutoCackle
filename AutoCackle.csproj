@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- net48: the 0Harmony.dll shipped with Unity Mod Manager targets .NET Framework 4.8. -->
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>AutoCackle</AssemblyName>
+    <RootNamespace>AutoCackle</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <DebugType>none</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\AutoCackle\</OutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!-- Optional local override: copy GamePath.props.example to GamePath.props and set WrathPath. -->
+  <Import Project="GamePath.props" Condition="Exists('GamePath.props')" />
+
+  <PropertyGroup>
+    <WrathPath Condition="'$(WrathPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Pathfinder Second Adventure</WrathPath>
+    <ManagedPath>$(WrathPath)\Wrath_Data\Managed</ManagedPath>
+  </PropertyGroup>
+
+  <Target Name="CheckGamePath" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(ManagedPath)\Assembly-CSharp.dll')"
+           Text="Pathfinder: Wrath of the Righteous not found at '$(WrathPath)'. Copy GamePath.props.example to GamePath.props and set WrathPath to your game folder." />
+    <Error Condition="!Exists('$(ManagedPath)\UnityModManager\UnityModManager.dll')"
+           Text="Unity Mod Manager is not installed in the game at '$(WrathPath)'. Install it first (the build references its UnityModManager.dll and 0Harmony.dll)." />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Game and mod-manager assemblies: referenced, never copied to the output. -->
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(ManagedPath)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Owlcat.Runtime.Core">
+      <HintPath>$(ManagedPath)\Owlcat.Runtime.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedPath)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(ManagedPath)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(ManagedPath)\UnityModManager\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityModManager">
+      <HintPath>$(ManagedPath)\UnityModManager\UnityModManager.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Info.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

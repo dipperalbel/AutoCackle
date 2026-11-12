@@ -1,0 +1,9 @@
+<!--
+  Copy this file to GamePath.props (ignored by git) if the game is not installed in the
+  default Steam folder, and set WrathPath to the folder that contains Wrath.exe.
+-->
+<Project>
+  <PropertyGroup>
+    <WrathPath>D:\Games\Pathfinder Second Adventure</WrathPath>
+  </PropertyGroup>
+</Project>
